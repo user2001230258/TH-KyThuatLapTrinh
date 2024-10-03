@@ -1,6 +1,8 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <ifstream>
+
 using namespace std;
 
 void nhapMang2Chieu(int** a, int size) {
@@ -26,7 +28,7 @@ void xuatMang2Chieu(int** a, int size) {
     cout << "Ma tran vuong: " << endl;
     for(int i = 0;i < size;i++) {
         for(int j=0; j<size;j++) {
-            cout << a[i][j] << "  ";
+            cout << a[i][j] << " ";
         }
         cout << endl;
     }
@@ -34,19 +36,62 @@ void xuatMang2Chieu(int** a, int size) {
 
 
 void hoanViMaTran(int** a, int size) {
-    int index1, index2;
+    int viTri1, viTri2;
     do {
-        index1 = rand() % size;
-        index2 = rand() % size;
-    } while (index1 == index2);
+        viTri1 = rand() % size;
+        viTri2 = rand() % size;
+    } while (viTri1 == viTri2);
 
-    cout << "Hoan vi 2 dong: " << index1 << " va " << index2 << endl;
+    cout << "Hoan vi 2 dong: " << viTri1 << " va " << viTri2 << endl;
 
     for (int j = 0; j < size; j++) {
-        swap(a[index1][j], a[index2][j]);
+        swap(a[viTri1][j], a[viTri2][j]);
     }
 }
 
+void sapXepGiamDan(int** a, int size) {
+	for (int j = 1;j<size;j+=2) { // Duyet cac cot le j=1,3,5,....
+		for (int i = 0; i<size-1;i++) {
+			for (int k = i+1;k<size;k++) {
+				if (a[i][j] < a[k][j]) {
+					int temp = a[i][j];
+					a[i][j] = a[k][j];
+					a[k][j] = temp;
+				}
+			}
+		}
+	}
+	cout << "Da sap xep cac cot giam dan" << endl;
+}
+
+void sapXepDuongCheoChinhTangDan(int** a, int size) {
+	int* duongCheoChinh = new int[size];
+	
+	// Lay phan tu tren duong cheo chinh
+	for (int i = 0; i < size;i++) {
+		duongCheoChinh[i] = a[i][i];
+	}
+	
+	for (int i =0;i < size-1;i++) {
+		for (int j = i+1; j <size;j++) {
+			if(duongCheoChinh[i] > duongCheoChinh[j]) {
+				int temp = duongCheoChinh[i];
+				duongCheoChinh[i] = duongCheoChinh[j];
+				duongCheoChinh[j] = temp;
+			}
+		}
+	}
+	
+	// Dua lai cac phan tu da sap xep vao duong cheo chinh
+	for (int i = 0; i < size;i++) {
+		a[i][i] = duongCheoChinh[i];
+	}
+	
+	delete[] duongCheoChinh;
+	
+	cout << "da sap xep cac phan tu tren duong cheo chinh tang dan" << endl;
+	
+}
 
 
 int main() {
@@ -61,39 +106,45 @@ int main() {
     int choice;
     do {
         cout << "---------------------------------------" << endl;
-        cout << "1. Nhap ma tran vuong" << endl;
-        cout << "2. Ma tran vuong ngau nhien" << endl;
-        cout << "3. Xuat ma tran vuong" << endl;
-        cout << "4. Hoan vi 2 dong ma tran" << endl;
-        cout << "5. Thoat" << endl;
+        cout << "1. Ma tran vuong ngau nhien" << endl;
+        cout << "2. Xuat ma tran vuong" << endl;
+        cout << "3. Hoan vi 2 dong ma tran" << endl;
+        cout << "4. Sap xep cac cot le theo thu tu giam dan" << endl;
+        cout << "5. Sap xep phan tu tren duong cheo chinh tang dan" << endl;
+        cout << "6. Thoat" << endl;
         cout << "Lua chon cua ban: ";
         cin>>choice;
         
-        switch(choice) {
+        switch(choice) {    
             case 1:
-                nhapMang2Chieu(a,size);
-                break;
-                
-            case 2:
                 mang2ChieuNgauNhien(a,size);
                 break;
                 
-            case 3: 
+            case 2: 
                 xuatMang2Chieu(a,size);
                 break;
 
-            case 4:
+            case 3:
                 hoanViMaTran(a,size);
                 break;
-                
-            case 5:
+            
+			case 4:
+				sapXepGiamDan(a,size);
+				break; 
+			
+			case 5:
+				sapXepDuongCheoChinhTangDan(a,size);
+				break;
+						   
+            case 6:
                 cout << "Thoat chuong trinh" << endl;
                 break;
+                
             default:
                 cout << "Lua chon khong hop le!" << endl;
         }
         
-    } while (choice!=4);
+    } while (choice!=0);
 
 
     
