@@ -33,6 +33,21 @@ void xuatMang2Chieu(int** a, int size) {
 }
 
 
+void hoanViMaTran(int** a, int size) {
+    int index1, index2;
+    do {
+        index1 = rand() % size;
+        index2 = rand() % size;
+    } while (index1 == index2);
+
+    cout << "Hoan vi 2 dong: " << index1 << " va " << index2 << endl;
+
+    for (int j = 0; j < size; j++) {
+        swap(a[index1][j], a[index2][j]);
+    }
+}
+
+
 
 int main() {
     int size;
@@ -49,7 +64,8 @@ int main() {
         cout << "1. Nhap ma tran vuong" << endl;
         cout << "2. Ma tran vuong ngau nhien" << endl;
         cout << "3. Xuat ma tran vuong" << endl;
-        cout << "4. Thoat" << endl;
+        cout << "4. Hoan vi 2 dong ma tran" << endl;
+        cout << "5. Thoat" << endl;
         cout << "Lua chon cua ban: ";
         cin>>choice;
         
@@ -65,8 +81,12 @@ int main() {
             case 3: 
                 xuatMang2Chieu(a,size);
                 break;
-                
+
             case 4:
+                hoanViMaTran(a,size);
+                break;
+                
+            case 5:
                 cout << "Thoat chuong trinh" << endl;
                 break;
             default:
