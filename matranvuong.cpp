@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <ifstream>
+#include <fstream>
 
 using namespace std;
 
@@ -93,6 +93,24 @@ void sapXepDuongCheoChinhTangDan(int** a, int size) {
 	
 }
 
+void ghiMaTranVaoFile(int** a, int size, const string& filename) {
+	ofstream outfile(filename);
+	if(outfile.is_open()) {
+		outfile << size << endl; // Ghi kich thuoc ma tran o dong dau tien
+		
+		for(int i = 0; i <size;i++) {
+			for (int j = 0;j<size;j++) {
+				outfile << a[i][j] << " ";
+			}
+			outfile << endl;
+		}
+		outfile.close();
+		cout << "Da ghi ma tran vao file " << filename << " thanh cong" << endl;
+	} else {
+		cout <<"Khong the mo file" << endl;
+	}
+}
+
 
 int main() {
     int size;
@@ -118,6 +136,7 @@ int main() {
         switch(choice) {    
             case 1:
                 mang2ChieuNgauNhien(a,size);
+                ghiMaTranVaoFile(a,size, "MSSV.txt");
                 break;
                 
             case 2: 
@@ -126,17 +145,24 @@ int main() {
 
             case 3:
                 hoanViMaTran(a,size);
+                ghiMaTranVaoFile(a,size, "MSSV.txt");
                 break;
             
 			case 4:
 				sapXepGiamDan(a,size);
+				ghiMaTranVaoFile(a,size, "MSSV.txt");
 				break; 
 			
 			case 5:
 				sapXepDuongCheoChinhTangDan(a,size);
+				ghiMaTranVaoFile(a,size, "MSSV.txt");
 				break;
-						   
-            case 6:
+			
+			case 6:
+				cout<<"Thoat chuong trinh"<<endl;
+				break;
+							   
+            case 7:
                 cout << "Thoat chuong trinh" << endl;
                 break;
                 
