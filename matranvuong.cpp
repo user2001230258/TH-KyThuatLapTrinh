@@ -73,7 +73,7 @@ int main() {
                 cout << "Lua chon khong hop le!" << endl;
         }
         
-    } while (choice!=0);
+    } while (choice!=4);
 
 
     
